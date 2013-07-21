@@ -24,25 +24,19 @@ define(
    "lib/backbone"
    "neo4j/webadmin/modules/dashboard/DashboardRouter"
    "neo4j/webadmin/modules/databrowser/DataBrowserRouter"
-   "neo4j/webadmin/modules/console/ConsoleRouter"
-   "neo4j/webadmin/modules/serverinfo/ServerInfoRouter"
-   "neo4j/webadmin/modules/indexmanager/IndexManagerRouter"
    "neo4j/webadmin/modules/baseui/BaseUI"
    "neo4j/webadmin/modules/moreinfo/MoreInfo"
    "neo4j/webadmin/modules/guide/GuideDeck"
    "neo4j/webadmin/modules/loading/GlobalLoadingIndicator"
    "neo4j/webadmin/modules/connectionmonitor/ConnectionMonitor"
    "neo4j/webadmin/Bootstrapper"]
-  (a,b,c,DashboardRouter, DataBrowserRouter, ConsoleRouter, ServerInfoRouter, IndexManagerRouter, BaseUI, MoreInfo, GuideDeck, GlobalLoadingIndicator, ConnectionMonitor, Bootstrapper) ->
+  (a,b,c,DashboardRouter, DataBrowserRouter,  BaseUI, MoreInfo, GuideDeck, GlobalLoadingIndicator, ConnectionMonitor, Bootstrapper) ->
 
 
     modules = {
         baseui: new BaseUI
         dashboard: new DashboardRouter
         browser: new DataBrowserRouter
-        console: new ConsoleRouter
-        indexes: new IndexManagerRouter
-        info: new ServerInfoRouter
 
         connection: new ConnectionMonitor
         guide: new GuideDeck
@@ -57,9 +51,6 @@ define(
       modules.baseui
       modules.dashboard
       modules.browser
-      modules.console
-      modules.indexes
-      modules.info
 
       modules.connection
       modules.guide
