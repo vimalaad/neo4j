@@ -9,19 +9,18 @@ define [], () ->
         if maxlen isnt NaN and value.length > maxlen
           return value[0...maxlen]
         return value
-    
+    # rafzalan
     @compile : (template, data) ->
-      template.replace /\{([\w\-\,\.\|:]*)}/g, (str, key) ->
+      template.replace /\{([\u0600-\u06FF\w\-\,\.\|:]*)}/g, (str, key) ->
         pipes = key.split('|')
         keySets = for path in pipes.shift().split(",")
           path.split(".")
-        
         for keys in keySets
           value = data[keys.shift()]
           for key in keys
             if value? and value.hasOwnProperty(key) then value = value[key] 
             else value = null
-          
+            
           if value?      
             # Pipe the value through whatever functions was asked for
             for pipe in pipes
