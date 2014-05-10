@@ -45,7 +45,7 @@ define(
 
         # TODO: Check if there is a way to re-use this
         @_editor = CodeMirror($("#data-console").get(0),{
-          value: @dataModel.getQuery()
+          value: @dataModel.getQuery().replace(/^\.(\S+)\s+is/,"").replace(/(.*)?/,"")
           onKeyEvent: @onKeyEvent
           #mode: "text/x-cypher"
           mode : "text"
@@ -122,7 +122,23 @@ define(
         $(".CodeMirror-scroll",@el).css("height",height)
         @_editor.refresh()
 
-      _getEditorValue : ()  -> @_editor.getValue()
+      _getEditorValue : ()  -> 
+        searchVal=@_editor.getValue()
+        selectedID=$( "#data-select-console option:selected" ).attr("id")
+        if selectedID == "1"
+          newEditorValue=".عنوان_دوره is .*"+searchVal+".*"
+        if selectedID == "2"
+          newEditorValue=".ترتيب is "+searchVal
+        if selectedID == "3"
+          newEditorValue=".کد_پتروشیمی is "+searchVal
+        if selectedID == "4"
+          newEditorValue=".سرفصلها is .*"+searchVal+".*"
+        if selectedID == "5"
+          newEditorValue=".اهداف_دوره is .*"+searchVal+".*"
+        if selectedID == "6"
+          newEditorValue="..* is .*"+searchVal+".*"
+        newEditorValue
+
       _setEditorValue : (v) -> @_editor.setValue(v)
 
       _newlinesIn : (string) ->

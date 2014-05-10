@@ -2,15 +2,15 @@
   %tbody
     %tr
       %th 
-        %h3 Id
-      :each key in nodeList.getPropertyKeys()
+        %h3 عنوان_دوره
+      :each key in ["شرايط_شركت_كنندگان","اهداف_دوره","مقطع_تحصيلي_و_رشته","کد_وزارت","ساعت"]
         %th
           %h3= htmlEscape(key)
     :each node in nodeList.getNodes()
       %tr
         %td
-          %a.micro-button(href="#/data/search/#{htmlEscape(node.getId())}/")= "Node " + htmlEscape(node.getId())
-        :each key in nodeList.getPropertyKeys()
+          %a.micro-button(href="#/data/search/#{htmlEscape(node.getId())}/")= node.getPropertyByKey("عنوان_دوره").getTruncatedHtmlValue(50)
+        :each key in ["شرايط_شركت_كنندگان","اهداف_دوره","مقطع_تحصيلي_و_رشته","ترتيب","ساعت"]
           %td.small
             :if node.getPropertyByKey(key)
               = node.getPropertyByKey(key).getTruncatedHtmlValue(50)

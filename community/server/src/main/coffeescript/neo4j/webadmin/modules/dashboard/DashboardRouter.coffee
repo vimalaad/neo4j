@@ -38,8 +38,8 @@ define(
         @appState = appState
         
         @menuItem = new MainMenuModel.Item 
-          title : "Dashboard",
-          subtitle:"Overview",
+          title : "خلاصه",
+          subtitle:"دوره های جامع نفت",
           url : "#"
 
       dashboard : =>

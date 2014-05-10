@@ -34,8 +34,8 @@ define(
         @dataModel.bind "change:data", @onDataChangedInModel
 
         @menuItem = new MainMenuModel.Item 
-          title : "Data browser",
-          subtitle:"Explore and edit",
+          title : "پیمایش داده ها",
+          subtitle:"دوره های جامع نفت",
           url : @_getCurrentQueryURI()
 
       search : (query) =>
@@ -144,7 +144,10 @@ define(
                     (rel:\d+)              | # or
 
                     # Direct rel id lookups
-                    (rels:\d+)
+                    (rels:\d+)             | # or
+                    
+                    # AllNodesAllPropsREGXValueSearcher
+                    (\.(\S+)\s+is\s+(\S+))
                      )$
                   ///i
 
