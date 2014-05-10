@@ -40,8 +40,6 @@ define(
       template : template
 
       events : 
-        "click #data-create-node" : "createNode"
-        "click #data-create-relationship" : "createRelationship"
         "click #data-switch-view" : "switchView"
 
       initialize : (options)->
@@ -130,30 +128,6 @@ define(
           "description":description
           "monospaceDescription":monospaceDescription
         ))
-
-      createNode : =>
-        @server.node({}).then (node) =>
-          id = @urlResolver.extractNodeId(node.getSelf())
-          @dataModel.setQuery( id )
-          @dataModel.executeCurrentQuery() 
-
-      createRelationship : =>
-        if @createRelationshipDialog?
-          @hideCreateRelationshipDialog()
-        else
-          button = $("#data-create-relationship")
-          button.addClass("selected")
-          @createRelationshipDialog = new CreateRelationshipDialog(
-            baseElement : button
-            dataModel : @dataModel
-            server : @server
-            closeCallback : @hideCreateRelationshipDialog)
-
-      hideCreateRelationshipDialog : =>
-        if @createRelationshipDialog?
-          @createRelationshipDialog.remove()
-          delete(@createRelationshipDialog)
-          $("#data-create-relationship").removeClass("selected")
 
       switchView : (ev) =>
         if @viewType == "visualized"

@@ -43,21 +43,13 @@
             \<i>Ex: node:index:myindex:name:*</i>
     .span-half.last
       %ul.data-toolbar.button-bar
-        %li
-          #data-create-node.text-icon-button(title="Create a node")
-            %span.icon
-            Node
-        %li
-          #data-create-relationship.text-icon-button(title="Create a relationship")
-            %span.icon
-            Relationship
         :if viewType === "tabular"      
           %li
-            #data-switch-view.icon-button(title="Switch view mode")
+            #data-switch-view.icon-button(title="تغییر به نمای گرافیکی")
               %span.icon
         :if viewType !== "tabular"      
           %li
-            #data-switch-view.icon-button(title="Switch view mode")
+            #data-switch-view.icon-button(title="تغییر به نمای جدولی")
               %span.icon.tabular
 
     .break
