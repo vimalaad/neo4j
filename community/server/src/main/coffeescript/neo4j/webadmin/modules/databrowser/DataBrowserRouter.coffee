@@ -129,25 +129,9 @@ define(
       # to a webadmin URL with a malicious Cypher query. Please
       # opt for better-safe-than-sorry when updating this regex.
       _looksLikeReadOnlyQuery : (query) ->
-        pattern = ///^(
-                    # Super basic cypher queries
-                    (start 
-                     \s+ 
-                     [a-z]+=node\(\d+\)
-                     \s+
-                     return \s+ [a-z]+)    | # or
- 
-                    # Direct node id lookups
-                    ((node:)?\d+)          | # or
-
-                    # Direct rel id lookups 
-                    (rel:\d+)              | # or
-
-                    # Direct rel id lookups
-                    (rels:\d+)             | # or
-                    
+        pattern = ///^(            
                     # AllNodesAllPropsREGXValueSearcher
-                    (\.(\S+)\s+is\s+(\S+))
+                    (\.(\S+)\s+is\s+(\S{6,}))
                      )$
                   ///i
 

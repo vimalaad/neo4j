@@ -45,7 +45,7 @@ define(
 
         # TODO: Check if there is a way to re-use this
         @_editor = CodeMirror($("#data-console").get(0),{
-          value: @dataModel.getQuery().replace(/^\.(\S+)\s+is/,"").replace(/(.*)?/,"")
+          value: @dataModel.getQuery().match(/^\.(\S+)\s+is\s+(\S+)$/)[2].replace(/\.\*/g,'')
           onKeyEvent: @onKeyEvent
           #mode: "text/x-cypher"
           mode : "text"
