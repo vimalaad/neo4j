@@ -165,12 +165,7 @@ define(
           if data instanceof neo4j.cypher.QueryResult
             numberOfRows = data.data.length
           else
-            numberOfRows = if data.getRawNodes().length? then data.getRawNodes().length else 1
-            # if @getState() is DataBrowserState.State.NODE_LIST
-            #  numberOfRows = data.getRawNodes().length
-            # else
-            #  numberOfRows = if data.length? then data.length else 1
-            #  alert @getState()
+            numberOfRows = if data.getRawNodes().length? then data.getRawNodes().length else 1 # Rafzalan
         else
           numberOfRows = 0
         meta = @getQueryMetadata()

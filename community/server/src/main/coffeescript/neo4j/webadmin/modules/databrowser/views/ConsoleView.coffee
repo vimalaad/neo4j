@@ -45,7 +45,7 @@ define(
 
         # TODO: Check if there is a way to re-use this
         @_editor = CodeMirror($("#data-console").get(0),{
-          value: @dataModel.getQuery().match(/^\.(\S+)\s+is\s+(\S+)$/)[2].replace(/\.\*/g,'')
+          value: @dataModel.getQuery().match(/^\.(\S+)\s+is\s+(.+)$/)[2].replace(/\.\*/g,'')
           onKeyEvent: @onKeyEvent
           #mode: "text/x-cypher"
           mode : "text"
@@ -122,7 +122,7 @@ define(
         $(".CodeMirror-scroll",@el).css("height",height)
         @_editor.refresh()
 
-      _getEditorValue : ()  -> 
+      _getEditorValue : ()  -> # RAfzalan
         searchVal=@_editor.getValue()
         selectedID=$( "#data-select-console option:selected" ).attr("id")
         if selectedID == "1"

@@ -24,7 +24,7 @@ define ["neo4j/webadmin/utils/ItemUrlResolver"], (ItemUrlResolver) ->
     constructor : (server) ->
       @server = server
       @urlResolver = new ItemUrlResolver(server)
-      @pattern = /^\.(\S+)\s+is\s+(\S+)$/
+      @pattern = /^\.(\S+)\s+is\s+(.+)$/
       
     match : (statement) =>
       @pattern.test(statement)
