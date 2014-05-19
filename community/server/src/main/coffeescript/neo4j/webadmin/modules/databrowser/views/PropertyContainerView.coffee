@@ -33,14 +33,13 @@ define(
         "keyup input.property-value"   : "valueChanged",
         "change input.property-key"    : "keyChangeDone",
         "change input.property-value"  : "valueChangeDone",
-        "click .delete-property"       : "deleteProperty",
-        "click .add-property"          : "addProperty",
+        "click .get-course-file"       : "getFile",
         "click .data-save-properties"  : "saveChanges"
-        "click .data-delete-item"      : "deleteItem"
 
       initialize : (opts) =>
         @template = opts.template
         @dataModel = opts.dataModel
+        @_href = "" # RAfzalan href for course documents
 
       keyChanged : (ev) =>
         id = @getPropertyIdForElement(ev.target)
@@ -69,22 +68,27 @@ define(
         @saveChanges()
         @updateErrorMessages()
 
-      deleteProperty : (ev) =>
-        id = @getPropertyIdForElement(ev.target)
-        @propertyContainer.deleteProperty(id)
-        @propertyContainer.save()
+      getFile : (ev) => # RAfzalan
+        ev.preventDefault() #  stop the browser from following
+        # window.location.href = @_href
+        a = document.createElement('a')
+        a.href = @_href
+        # a.download = "Course_Contents" # not work
+        $(a).attr("download",@_href) # not work
+        window.location = a 
 
-      addProperty : (ev) =>
-        @propertyContainer.addProperty()
+      doesFileExist = (urlToFile) -> # RAfzalan
+        xhr = new XMLHttpRequest()
+        xhr.open "HEAD", urlToFile, false
+        xhr.send()
+        if xhr.status is 200
+          true
+        else
+          false
 
       saveChanges : (ev) =>
         @propertyContainer.save()
 
-      deleteItem : (ev) =>
-        if confirm "Are you sure?"
-          @propertyContainer.getItem().remove().then () ->
-            window.location = "#/data/search/0"
-      
       updateErrorMessages : () =>
         for row in $("ul.property-row",@el)
           id =$(row).find("input.property-id").val()
@@ -140,6 +144,16 @@ define(
           item : @propertyContainer
         ))
         @renderProperties()
+        courseCodeProp = @propertyContainer.getPropertyByKey("ترتيب")
+        courseCode = if courseCodeProp then courseCodeProp.getValue().toString() else null
+        if courseCode? and (courseCode.length is 5)
+          @_href = 'docx/' + courseCode.substr(0,3) + '/' + parseInt(courseCode.substr(3,2)).toString() + '.docx'
+          if (doesFileExist @_href)
+            $(".get-course-file", @el).removeAttr("disabled", true) # RAfzalan
+          else
+            $(".get-course-file", @el).attr("disabled", "disabled") # RAfzalan
+        else
+          $(".get-course-file", @el).attr("disabled", "disabled") # RAfzalan
         return this
 
       renderProperties : =>

@@ -55,10 +55,7 @@ define(
       
       defaults :
         data : null
-        query : "START root=node(0) // Start with the reference node\n" +
-                "RETURN root        // and return it.\n" +
-                "\n" +
-                "// Hit CTRL+ENTER to execute"
+        query : ".عنوان_دوره is .*آموزش.*"
         queryOutOfSyncWithData : true
         state : DataBrowserState.State.NOT_EXECUTED
         querymeta : new DataBrowserState.QueryMetaData()
@@ -99,7 +96,6 @@ define(
   
         executionTime = @_executionTimer.getTimePassed()
         originalState = @getState()
-
         # These to be determined below
         state = null
         data = null
@@ -108,7 +104,7 @@ define(
         if result instanceof neo4j.models.Node
           state = DataBrowserState.State.SINGLE_NODE
           data = new NodeProxy(result, @_reportError)
-
+        
         else if result instanceof neo4j.models.Relationship
           state = DataBrowserState.State.SINGLE_RELATIONSHIP
           data = new RelationshipProxy(result, @_reportError)
@@ -142,10 +138,10 @@ define(
         else
           state = DataBrowserState.State.ERROR
           data = result
-
+        
         # Query meta data
         if state isnt DataBrowserState.State.ERROR
-          @_updateQueryMetaData(data,executionTime)
+          @_updateQueryMetaData(data,executionTime,state)
 
         @set({"state":state, "data":data, "queryOutOfSyncWithData" : not basedOnCurrentQuery }, {silent:true})
         if not opts.silent
@@ -160,12 +156,16 @@ define(
         # if it does not understand the data we give it.
         @setData(error)
       
-      _updateQueryMetaData : (data, executionTime) ->
+      _updateQueryMetaData : (data, executionTime, state) ->
         if data?
           if data instanceof neo4j.cypher.QueryResult
             numberOfRows = data.data.length
+          else if data.length?
+            numberOfRows = data.length
+          else if state == DataBrowserState.State.NODE_LIST
+            numberOfRows = data.getRawNodes().length
           else
-            numberOfRows = if data.getRawNodes().length? then data.getRawNodes().length else 1 # Rafzalan
+            numberOfRows = 1 # Rafzalan
         else
           numberOfRows = 0
         meta = @getQueryMetadata()

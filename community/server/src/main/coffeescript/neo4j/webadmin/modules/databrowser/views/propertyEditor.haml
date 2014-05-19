@@ -10,7 +10,7 @@
                 = htmlEscape(property.getKeyError())
             :if !property.hasKeyError()
               .form-error(style="display:none;")
-            %input.property-key(type="text" value="#{htmlEscape(property.getKey())}")
+            %input.property-key(type="text" value="#{htmlEscape(property.getKey())}" readonly="true")
         %li.property-value-wrap
           .property-input-wrap
             :if property.hasValueError()
@@ -18,14 +18,11 @@
                 = htmlEscape(property.getValueError())
             :if !property.hasValueError()
               .form-error(style="display:none;")
-            %input.property-value(type="text" value="#{property.getValueAsHtml()}")
-        %li.property-actions-wrap
-          .property-input-wrap
-            .delete-property.bad-button Remove
+            %input.property-value(type="text" value="#{property.getValueAsHtml()}" readonly="true")
       .break
 
   %li.property-controls
-    .add-property.text-icon-button(title="Add a new property")
+    .get-course-file.text-icon-button(title="دریافت پرونده دوره")
       %span.icon
-      Add property
+      دریافت پرونده
     .break

@@ -199,7 +199,7 @@ body {
   color: #444444;
   font-size: 12px;
   font-family:monospace;
-  width: 35%;
+  width: 40%;
   float:left;
   outline:none;
   border: 1px solid #CCCCCC;
@@ -210,12 +210,12 @@ body {
   padding: 4px 3px;
   margin-left:5px;
 }
-
+/* RAFZALAN */
 #data-select-console {
   color: #444444;
   font-size: 12px;
   font-family:monospace;
-  width: 40%;
+  width: 35%;
   float:left;
   outline:none;
   border: 1px solid #CCCCCC;

@@ -45,7 +45,7 @@ define(
 
         # TODO: Check if there is a way to re-use this
         @_editor = CodeMirror($("#data-console").get(0),{
-          value: @dataModel.getQuery().match(/^\.(\S+)\s+is\s+(.+)$/)[2].replace(/\.\*/g,'')
+          value: @_getQuery() # RAfzalan
           onKeyEvent: @onKeyEvent
           #mode: "text/x-cypher"
           mode : "text"
@@ -122,9 +122,31 @@ define(
         $(".CodeMirror-scroll",@el).css("height",height)
         @_editor.refresh()
 
+      _getQuery : () -> # RAfzalan
+        pattern = /^\.(\S+)\s+is\s+(.+)$/
+        if pattern.test(@dataModel.getQuery())
+          matches=@dataModel.getQuery().match(pattern)
+          if matches[1] == "عنوان_دوره"
+            $( "#query-type-select" ).attr("selectedIndex","1")
+          else if matches[1] == "ترتيب"
+            $( "#query-type-select" ).attr("selectedIndex","2")
+          else if matches[1] == "کد_پتروشیمی"
+            $( "#query-type-select" ).attr("selectedIndex","3")
+          else if matches[1] == "سرفصلها"
+            $( "#query-type-select" ).attr("selectedIndex","4")
+          else if matches[1] == "اهداف_دوره"
+            $( "#query-type-select" ).attr("selectedIndex","5")
+          else if matches[1] == ".*"
+            $( "#query-type-select" ).attr("selectedIndex","6")
+          matches[2].replace(/\.\*/g,'')
+        else
+          @dataModel.getQuery()
+          
       _getEditorValue : ()  -> # RAfzalan
         searchVal=@_editor.getValue()
         selectedID=$( "#data-select-console option:selected" ).attr("id")
+        if selectedID == "0"
+          newEditorValue=searchVal       
         if selectedID == "1"
           newEditorValue=".عنوان_دوره is .*"+searchVal+".*"
         if selectedID == "2"

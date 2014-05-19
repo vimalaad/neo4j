@@ -108,7 +108,7 @@ define(
               when "explored", "unexplored"
                 menu = []
                 o = {}
-                o["Show Details"] = =>
+                o["نمايش جزییات"] = =>
                   @trigger("visualNode:showDetailsClicked", visualNode.data.neoNode)
                   return true
                 menu.push o

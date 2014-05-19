@@ -45,11 +45,10 @@ define(
       getMenuItems : -> @_items
 
       getCurrentItem : ->
-        url = location.hash
+        url = location.hash    
         for item in _(@getMenuItems()).sortBy( (i)-> (-i.getUrl().length) )
-          if url.indexOf(item.getUrl()) is 0 or (url.length is 0 and item.getUrl() is "#")
+          if url.indexOf(decodeURI(item.getUrl())) is 0 or (url.length is 0 and item.getUrl() is "#")
             return item
-
         return null
 
 )

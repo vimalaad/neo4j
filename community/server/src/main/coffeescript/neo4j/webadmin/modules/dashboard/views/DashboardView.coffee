@@ -34,7 +34,6 @@ define(
         @appState = opts.state
         @server = @appState.getServer()
         @kernelBean = opts.kernelBean
-
         @kernelBean.bind "change", @render
 
       render : =>

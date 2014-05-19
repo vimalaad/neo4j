@@ -159,13 +159,11 @@ define(
         @dataView = @tabularView
         
       detach : ->
-        @hideCreateRelationshipDialog()
         if @dataView? then @dataView.detach()
         if @consoleView? then @consoleView.detach()
         super()
 
       remove : =>
-        @hideCreateRelationshipDialog()
         @dataView.remove()
 
       canVisualize : =>
