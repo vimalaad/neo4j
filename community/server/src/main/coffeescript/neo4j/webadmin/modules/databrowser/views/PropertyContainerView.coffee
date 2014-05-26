@@ -69,13 +69,14 @@ define(
         @updateErrorMessages()
 
       getFile : (ev) => # RAfzalan
-        ev.preventDefault() #  stop the browser from following
-        # window.location.href = @_href
-        a = document.createElement('a')
-        a.href = @_href
+        if @_href != ''
+          ev.preventDefault() #  stop the browser from following
+          window.location.href = @_href
+        # a = document.createElement('a')
+        # a.href = @_href
         # a.download = "Course_Contents" # not work
-        $(a).attr("download",@_href) # not work
-        window.location = a 
+        # $(a).attr("download",@_href) # not work
+        # window.location = a 
 
       doesFileExist = (urlToFile) -> # RAfzalan
         xhr = new XMLHttpRequest()
@@ -144,16 +145,22 @@ define(
           item : @propertyContainer
         ))
         @renderProperties()
-        courseCodeProp = @propertyContainer.getPropertyByKey("ترتيب")
+        courseCodeProp = @propertyContainer.getPropertyByKey("كد_دوره")
         courseCode = if courseCodeProp then courseCodeProp.getValue().toString() else null
+        @_href = ''
         if courseCode? and (courseCode.length is 5)
-          @_href = 'docx/' + courseCode.substr(0,3) + '/' + parseInt(courseCode.substr(3,2)).toString() + '.docx'
-          if (doesFileExist @_href)
-            $(".get-course-file", @el).removeAttr("disabled", true) # RAfzalan
+          @_href = 'docx/' + courseCode.substr(0,3) + '/' + parseInt(courseCode.substr(3,2)).toString()
+          if (doesFileExist (@_href+'.docx'))
+            @_href+='.docx'
           else
-            $(".get-course-file", @el).attr("disabled", "disabled") # RAfzalan
-        else
+            if (doesFileExist (@_href+'.doc'))
+              @_href+='.doc'
+            else
+              @_href = ''
+        if @_href is ''
           $(".get-course-file", @el).attr("disabled", "disabled") # RAfzalan
+        else
+          $(".get-course-file", @el).removeAttr("disabled", true) # RAfzalan
         return this
 
       renderProperties : =>

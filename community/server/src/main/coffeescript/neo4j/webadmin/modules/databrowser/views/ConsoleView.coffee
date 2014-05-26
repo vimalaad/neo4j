@@ -128,16 +128,12 @@ define(
           matches=@dataModel.getQuery().match(pattern)
           if matches[1] == "عنوان_دوره"
             $( "#query-type-select" ).attr("selectedIndex","1")
-          else if matches[1] == "ترتيب"
+          else if matches[1] == "كد_دوره"
             $( "#query-type-select" ).attr("selectedIndex","2")
-          else if matches[1] == "کد_پتروشیمی"
+          else if matches[1] == "کد_دوره_در_پتروشيمي"
             $( "#query-type-select" ).attr("selectedIndex","3")
-          else if matches[1] == "سرفصلها"
-            $( "#query-type-select" ).attr("selectedIndex","4")
           else if matches[1] == "اهداف_دوره"
-            $( "#query-type-select" ).attr("selectedIndex","5")
-          else if matches[1] == ".*"
-            $( "#query-type-select" ).attr("selectedIndex","6")
+            $( "#query-type-select" ).attr("selectedIndex","4")
           matches[2].replace(/\.\*/g,'')
         else
           @dataModel.getQuery()
@@ -150,15 +146,11 @@ define(
         if selectedID == "1"
           newEditorValue=".عنوان_دوره is .*"+searchVal+".*"
         if selectedID == "2"
-          newEditorValue=".ترتيب is "+searchVal
+          newEditorValue=".كد_دوره is "+searchVal
         if selectedID == "3"
-          newEditorValue=".کد_پتروشیمی is "+searchVal
+          newEditorValue=".کد_دوره_در_پتروشيمي is "+searchVal
         if selectedID == "4"
-          newEditorValue=".سرفصلها is .*"+searchVal+".*"
-        if selectedID == "5"
           newEditorValue=".اهداف_دوره is .*"+searchVal+".*"
-        if selectedID == "6"
-          newEditorValue="..* is .*"+searchVal+".*"
         newEditorValue
 
       _setEditorValue : (v) -> @_editor.setValue(v)

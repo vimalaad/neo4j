@@ -114,13 +114,13 @@ define(
             if not browserProfile.isDefault()
               data = browserProfile.toJSON()
               @serverNode.then (_root) ->
-                _root.setProperty("_style#"+data['name'],JSON.stringify(data))
+                _root.setProperty("_style_"+data['name'],JSON.stringify(data))
                 _root.save()
           
       # rafzalan
       loadProfilesFromRoot : () =>
         if confirm("Load profiles from root node. Are you sure?")
-          pattern = /^_style#(.+)$/
+          pattern = /^_style_(.+)$/
           @serverNode.then (_root) =>
             @serverNode=_root.fetch()
           @serverNode.then (_root) =>
