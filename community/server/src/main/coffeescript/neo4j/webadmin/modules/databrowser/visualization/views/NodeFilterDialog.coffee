@@ -43,7 +43,11 @@ define(
         
         filterableItems = for node in @nodes
           id = @urlResolver.extractNodeId(node.getSelf())
-          label = "#{id}: " + JSON.stringify node.getProperties()
+          selectedprops={}
+          allprops=node.getProperties()
+          for k in ["كد_تخصصي","عنوان_گروه_تخصصي","كد_دوره","ساعت","عنوان_دوره"]
+            selectedprops[k]=allprops[k]
+          label = "#{id}: " + JSON.stringify selectedprops
           { node : node, key : node.getSelf(), label : label }
 
         @filterList = new FilterList(filterableItems)

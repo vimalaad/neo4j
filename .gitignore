@@ -16,3 +16,7 @@ out
 .shell_history
 .mailmap
 .java-version
+*.doc
+docx/
+*.docx
+*.tmp

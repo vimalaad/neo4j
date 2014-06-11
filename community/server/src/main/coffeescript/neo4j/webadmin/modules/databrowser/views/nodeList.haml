@@ -10,7 +10,7 @@
       %tr
         %td
           %a.micro-button(href="#/data/search/#{htmlEscape(node.getId())}/")= node.getPropertyByKey("عنوان_دوره").getTruncatedHtmlValue(50)
-        :each key in ["شرايط_شركت_كنندگان","اهداف_دوره","مقطع_تحصيلي_و_رشته","کد_دوره","ساعت"]
+        :each key in ["شرايط_شركت_كنندگان","اهداف_دوره","مقطع_تحصيلي_و_رشته","كد_دوره","ساعت"]
           %td.small
             :if node.getPropertyByKey(key)
               = node.getPropertyByKey(key).getTruncatedHtmlValue(50)

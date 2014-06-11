@@ -43,14 +43,14 @@ define(
         items = []
         items.push @title "Profiles"
         # rafzalan
-        saveButton = $ "<div class='bad-button micro-button'>Save profiles to root</div>"
+        saveButton = $ "<div class='bad-button micro-button'>ذخیره مدلهای نمایش</div>"
         saveButton.click (ev) =>
           @saveProfilesToRoot()
           ev.stopPropagation()
 
         items.push @actionable saveButton
 
-        loadButton = $ "<div class='bad-button micro-button'>Load profiles from root</div>"
+        loadButton = $ "<div class='bad-button micro-button'>خواندن مدلهای نمایش</div>"
         loadButton.click (ev) =>
           @loadProfilesFromRoot()
           ev.stopPropagation()
@@ -107,7 +107,7 @@ define(
         
       # rafzalan
       # save all profiles to node(0) 
-      # update/create property name "_style#" + profilename and JSON value
+      # update/create property name "_style_" + profilename and JSON value
       saveProfilesToRoot : () =>
         if confirm("Save profiles to root node. Are you sure?")
           @profiles.each (browserProfile) =>
