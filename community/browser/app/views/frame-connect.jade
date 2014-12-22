@@ -4,59 +4,59 @@ div(ng-controller="AuthCtrl")
     .inner
       .view-result(ng-hide="password_change_required")
         article.help
-          .container-fluid
+          .container-fluid(dir='rtl')
             .section.row-fluid.summary(ng-show="!static_is_authenticated")
               .summary.col-sm-3
-                h3 Connect to Neo4j
+                h3 اتصال به بانک دوره ها 
                 p.lead
-                  | Data access requires an authenticated connection to the database.
+                  | اتصال به بانک نیاز به احراز هویت دارد.
               .details.col-sm-9(ng-hide="static_is_authenticated")
                 .form
                   .row
                     .col-sm-5
-                      | Username
+                      | نام کاربری
                       br
                       input.form-control(type='text', on-enter="focus", on-enter-target-id="connect_password", focus-on="1", ng-model="username", style="margin: 0")
                       br
                   .row
                     .col-sm-5
-                      | Password
+                      | کلمه عبور
                       br
                       input.form-control(id="connect_password", on-enter="click", on-enter-target-id="connect_button", type='password', ng-model="password", style="margin: 0")
                       br
                   .row.form-info
                     .col-sm-5
-                      | Default username/password: 
-                      b neo4j
+                      | پیش فرض کاربری/کلمه عبور: 
+                      b neo4j 
                       /
                       b neo4j
                   .row
                     .col-sm-5
                       br
-                      button.btn.btn-default(id="connect_button", ng-click="authenticate()", style="margin: 0") Connect
+                      button.btn.btn-default(id="connect_button", ng-click="authenticate()", style="margin: 0") اتصال 
             .section.row-fluid.summary(ng-if="static_is_authenticated && !password_change_required && !static_user")
               .summary.col-sm-3
-                h3 Connection to Neo4j
+                h3 اتصال به بانک دوره ها
                 p.lead
-                  | Connected.
+                  | اتصال برقرار شد.
               .details.col-sm-9
-                p Connected to the Neo4j database (no authentication required).
+                p اتصال به بانک (بدون نیاز به احراز هویت).
             .section.row-fluid.summary(ng-show="static_is_authenticated && !password_change_required && static_user")
               .summary.col-sm-3
-                h3 Connected to Neo4j
+                h3 اتصال به بانک دوره ها 
                 p.lead
-                  | Nice to meet you.
+                  | خوش آمدید.
               .details.col-sm-9
                 p
                 ul.big.undecorated
                   li
                     span.center-tbl-left-col 
-                      | Current user: 
+                      | نام کاربری: 
                     code
                       | {{static_user.username}}
                   li
                     span.center-tbl-left-col
-                      | Authorization token: 
+                      | کد هویت کاربری: 
                     code
                       | {{static_user.authorization_token}}
       .view-result.fade(ng-show="password_change_required")

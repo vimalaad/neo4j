@@ -14,9 +14,12 @@
           a(exportable ng-click='exportJSON(frame.response)') Export JSON
           a(exportable ng-click='exportCSV(frame.response.table)') Export CSV
     li
-      a.button.fa.fa-expand(ng-click="toggleFullscreen(true)", tooltip-placement='bottom', tooltip='Fullscreen', ng-show='frame.fullscreenable')
+      a.button.fa.fa-expand(ng-click="toggleFullscreen(true)", tooltip-placement='bottom', tooltip='تمام صفحه', ng-show='frame.fullscreenable')
     li
-      a.button.fa.fa-times-circle(ng-click='frames.close(frame)', tooltip-placement='bottom', tooltip='Close')
+      a.button.fa(ng-click="editor.execScript(':play search',true)", tooltip-placement='bottom', tooltip='جستجو')
+        .glyphicon.glyphicon-search
+    li
+      a.button.fa.fa-times-circle(ng-click='frames.close(frame)', tooltip-placement='bottom', tooltip='بسته')
   .status
     span.prompt.code(ng-if='frame.type == "cypher"') $
     span.code.mono(click-to-code='frame.input') {{frame.input | uncomment}}

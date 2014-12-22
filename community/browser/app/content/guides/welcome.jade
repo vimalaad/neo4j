@@ -1,41 +1,43 @@
 article.guide
-  .container-fluid
+  .container-fluid(dir='rtl')
     .row
       .col-sm-4
-        img.img-responsive(src='images/welcome-logo.png')
-        p.lead.text-center {{ neo4j.version }}
+        a.thumbnail
+          img.img-responsive(src='images/search_button.png',ng-click="editor.execScript(':play search', true)")
       .col-sm-4
-        h3 Getting started
-        p.lead by learning about Neo4j...
+        h3 شروع
+        p.lead  درباره دوره های شرکت ره آوران...
         br
         ul.big.undecorated
           li
-            a(play-topic='intro') Intro
-            |  - a guided tour
+            a(play-topic='intro')  مقدمه
+            |  - یک تور راهنما
           li
-            a(play-topic='concepts') Concepts
-            |  - GraphDB 101
+            a(play-topic='concepts')  ایده ها
+            |  - بانک دوره ها
           li
-            a(play-topic='cypher') Cypher
-            |  - query language
+            a(play-topic='cypher')  انتقاد 
+            |  - ارتباط با مدیریت 
       .col-sm-4
-        h3 Jump into code
-        p.lead with a mini graph app...
+        h3 راهنما 
+        p.lead نحوه کار
         br
         ul.big.undecorated
           li
-            a(play-topic='movie-graph') The Movie Graph
-          //- li
-          //-   a(play-topic='network-graph') Network Management
-          //- li
-          //-   a(play-topic='product-graph') Product Recommendations
+            a(play-topic='movie-graph')  تنظیمات گرافیک 
+          li
+            a(play-topic='movie-graph')  جستجو دوره
+          li
+            a(play-topic='network-graph')  جستجو مجموعه آموزشی
+          li
+            a(play-topic='product-graph')  جستجو کلاس
 
     .hero-unit
       p
-        a(href="{{ motd.callToAction.u}}") {{ motd.callToAction.d }}
+        a(href="http://www.rahamooz.org") پایگاه ره آموز، مرکز ارائه آموزشهای غیر حضوری شرکت ره آوران 
 
     footer
-      p Copyright &copy;
-        a.no-icon(href='http://neotechnology.com/')  Neo Technology
-        | &nbsp;2002–
+      p وابسته به &copy;
+        a.no-icon(href='http://www.rfpc.ir/') پایگاه شرکت ره آوران 
+        | &nbsp;2013–
         span= new Date().getFullYear()
