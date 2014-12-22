@@ -38,9 +38,9 @@ angular.module('neo4jApp.controllers')
       $scope.authenticate = ->
         $scope.error_text = ''
         if not $scope.password.length
-          $scope.error_text += 'You have to enter a password. '
+          $scope.error_text += 'باید کلمه عیور را وارد نمایید. '
         if not $scope.username.length
-          $scope.error_text += 'You have to enter a username. '
+          $scope.error_text += 'با ید نام کاربری را وارد نمایید. '
         return if $scope.error_text.length
 
         AuthService.authenticate($scope.username, $scope.password).then(

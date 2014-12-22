@@ -16,7 +16,7 @@ div(ng-controller="CypherResultCtrl", fullscreen)
               ng-controller='D3GraphCtrl'
               style="pointer-events:fill;")
           .status-bar
-            .status
+            .status(dir='rtl')
               include partials/inspector
 
         .view-result-table.result(ng-show='isActive("table")')
