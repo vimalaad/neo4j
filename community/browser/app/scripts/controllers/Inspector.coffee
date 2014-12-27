@@ -51,12 +51,34 @@ angular.module('neo4jApp.controllers')
 
       $scope.onNodeDragToggle = (node) ->
         $scope.inspectorFixed = !!node
-
+      
+      doesFileExist = (urlToFile) ->
+        xhr = new XMLHttpRequest()
+        xhr.open "HEAD", urlToFile, false
+        xhr.send()
+        if xhr.status is 200
+          true
+        else
+          false
+ 
       $scope.onItemClick = (item, type) ->
         if item
           $scope.currentItem = inspectorItem(item, type)
           $scope.Inspector.reset($scope.currentItem)
+          $scope.currentItemhref = null
+          if $scope.currentItem.data.labels? 
+            if $scope.currentItem.data.labels[0]?
+              if $scope.currentItem.data.labels[0] == 'دوره'  
+                $scope.currentItemhref = '/webadmin/docx/'+$scope.currentItem.data.propertyMap['كد_تخصصي']+'/'+parseInt($scope.currentItem.data.propertyMap['ترتيب']).toString() 
+                if (doesFileExist $scope.currentItemhref+'.docx') == false
+                  if (doesFileExist $scope.currentItemhref+'.doc') == false
+                    $scope.currentItemhref = null
+                  else
+                    $scope.currentItemhref =  $scope.currentItemhref+'.doc'
+                else
+                  $scope.currentItemhref =  $scope.currentItemhref+'.docx' 
         else
+          $scope.currentItemhref = null
           $scope.currentItem = null
           $scope.Inspector.reset()
         triggerInspectorUIUpdate()

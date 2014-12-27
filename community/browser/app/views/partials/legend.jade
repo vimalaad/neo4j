@@ -1,5 +1,5 @@
 .legend(ng-controller='LegendCtrl', ng-model='frame.results.graph')
-  .legend-row(ng-if='labels[""].count', ng-class="{contracted: labelsContracted}")
+  .legend-row(ng-if='labels[""].count', ng-class="{contracted: labelsContracted}", dir='rtl')
     .row-toggle(overflow-with-toggle='', ng-click="labelsContracted = !labelsContracted")
       .fa(ng-class="labelsContracted ? 'fa-caret-left' : 'fa-caret-down'", class="overflow-indicator")
     ul.list-unstyled.list-labels
@@ -7,7 +7,16 @@
         .contents(ng-click="onItemClick(node, 'label')")
           .label.label-node.class-name(ng-style='{"background-color": node.style.props.color, "color": node.style.props["text-color-internal"]}') {{label || '*'}}
             span.count ({{node.count}})
-  .legend-row(ng-if='types[""].count', ng-class="{contracted: typesContracted}")
+        a(ng-if="label == 'دوره' && currentItemhref != null", ng-href="{{currentItemhref}}")
+          .contents.glyphicon.glyphicon-paperclip(tooltip="دریافت پرونده دوره", tooltip-placement='bottom', tooltip-animation='false')
+            | پرونده
+        a(ng-if="label == 'کلاس'", ng-href="")
+          .contents.glyphicon.glyphicon-ok(tooltip="ثبتنام در کلاس", tooltip-placement='bottom', tooltip-animation='false')
+            | ثبتنام
+        a(ng-if="label == 'دوره' && currentItem != null", ng-href="")
+          .contents.glyphicon.glyphicon-ok(tooltip="ثبت اعلام نیاز آموزشی", tooltip-placement="bottom", tooltip-animation='false')
+            | ثبت 
+  .legend-row(ng-if='types[""].count', ng-class="{contracted: typesContracted}", dir='rtl')
     .row-toggle(overflow-with-toggle='', ng-click="typesContracted = !typesContracted")
       .fa(ng-class="typesContracted ? 'fa-caret-left' : 'fa-caret-down'", class="overflow-indicator")
     ul.list-unstyled.list-relationships

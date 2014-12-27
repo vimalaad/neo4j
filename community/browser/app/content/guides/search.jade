@@ -1,0 +1,37 @@
+div.inner(ng-controller='SearchCtrl',dir='rtl')
+  table(style='margin-right:25px;height:210px')
+    tr 
+      td(valign="top") 
+        table(style='margin-left:25px')
+          tr
+            td
+              img(src='images/back_R.png')
+          tr
+            td(style='padding-right:10px')
+              input#searchBox(ng-keyup="change($event)", focus-on="true", type='text', ng-model='textValue', size='25', style="font-family:tahoma;font-size:24px;float:right;", tooltip='عبارت مورد نظر را وارد نمایید')
+              button.btn.btn-primary(ng-click='find()') بیاب 
+          tr
+            td(style='padding-right:10px')
+              label
+                input#classSearch(type='checkbox', value='false')
+                | جستجوی کلاسهای تقویم
+      td
+        img(src="images/search_button.png", data-ng-show="result==null")
+        p
+          a(ng-click="go(0)", style="cursor: pointer", ng-show="result[0]>0")
+            تعداد {{result[0]}} دوره عناوین حاوی عبارت {{searchBoxVal}} دارند              
+        p
+          a(ng-click="go(1)", style="cursor: pointer", ng-show="result[1]>0")
+            تعداد {{result[1]}} گروه تخصصی عناوین حاوی عبارت {{searchBoxVal}} دارند             
+        p
+          a(ng-click="go(2)", style="cursor: pointer", ng-show="result[2]>0")
+            تعداد {{result[2]}} دوره اهداف حاوی عبارت {{searchBoxVal}} دارند         
+        p
+          a(ng-click="go(3)", style="cursor: pointer", ng-show="result[3]>0")
+            تعداد {{result[3]}} دوره محتوای حاوی عبارت {{searchBoxVal}} دارند          
+        p
+          a(ng-click="go(4)", style="cursor: pointer", ng-show="result[4]>0")
+            تعداد {{result[4]}} دوره کد حاوی عبارت {{searchBoxVal}} دارند           
+        p
+          a(ng-click="go(5)", style="cursor: pointer", ng-show="result[5]>0")
+            تعداد {{result[5]}} دوره کد معادل پتروشیمی حاوی عبارت {{searchBoxVal}} دارند
