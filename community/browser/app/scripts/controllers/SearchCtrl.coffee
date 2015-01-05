@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 'use strict';
 
 angular.module("neo4jApp").controller "SearchCtrl",['$rootScope','$scope','Editor','$http','$log', ($rootScope, $scope, Edit, $http, $log) ->
+  $scope.searchPhrase = 'سلام'
   items = [
     "MATCH (n:دوره) WHERE n.عنوان_دوره =~ '(?i).*$0.*'  RETURN count(*)"
     "MATCH (n:گروه) WHERE n.عنوان_گروه_تخصصي =~ '(?i).*$0.*'  RETURN count(*)"
@@ -70,34 +71,29 @@ angular.module("neo4jApp").controller "SearchCtrl",['$rootScope','$scope','Edito
     "MATCH (n:دوره) WHERE n.کد_دوره_در_پتروشيمي =~ '.*$0.*'  RETURN count(*)"
   ]
 
-  $scope.find = () ->
-    $scope.runQuery()
-    return
-    
   $scope.go = (selectIndex) ->
     if $scope.result[selectIndex] > 0
-      query = items[selectIndex].replace(/\$0/g, $scope.searchBoxVal).replace("RETURN count(*)", 'RETURN n')
+      query = items[selectIndex].replace(/\$0/g, $scope.searchPhrase).replace("RETURN count(*)", 'RETURN n')
       Edit.execScript(query)
     return
 
   $scope.change = ($event) ->
-    $scope.searchBoxVal = $("#searchBox").val()
-    if $("#searchBox").val().length > 3 or $event.which is 13
-      $scope.result = [-1, -1, -1, -1, -1, -1]
-      $scope.runQuery() 
+    if $scope.searchPhrase.length > 3 or $event.which is 13
+      $scope.runQuery()
     else
       $scope.result = null
     return
 
   $scope.result = null
 
-  $scope.runQuery = ->
+  $scope.runQuery = () ->
+    $scope.result = [-1, -1, -1, -1, -1, -1]
     i = 0
     max = 4
-    max = 6 if $scope.searchBoxVal % 1 is 0
+    max = 6 if $scope.searchPhrase % 1 is 0
     while i < max
       $http.post("http://172.16.1.11:7474/db/data/cypher",
-        query: items[i].replace(/\$0/g, $scope.searchBoxVal)
+        query: items[i].replace(/\$0/g, $scope.searchPhrase)
       ).success ((response) ->
         if $scope.result?
           $scope.result[@index] = response["data"]
