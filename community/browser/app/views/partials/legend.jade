@@ -10,10 +10,10 @@
         a(ng-if="label == 'دوره' && currentItemhref != null", ng-href="{{currentItemhref}}")
           .contents.glyphicon.glyphicon-paperclip(tooltip="دریافت پرونده دوره", tooltip-placement='bottom', tooltip-animation='false')
             | پرونده
-        a(ng-if="label == 'کلاس'", ng-href="")
+        a(ng-if="label == 'کلاس'", ng-click="submitClass()")
           .contents.glyphicon.glyphicon-ok(tooltip="ثبتنام در کلاس", tooltip-placement='bottom', tooltip-animation='false')
             | ثبتنام
-        a(ng-if="label == 'دوره' && currentItem != null", ng-href="")
+        a(ng-if="label == 'دوره' && currentCourseID != null", ng-click="submitCourse()")
           .contents.glyphicon.glyphicon-ok(tooltip="ثبت اعلام نیاز آموزشی", tooltip-placement="bottom", tooltip-animation='false')
             | ثبت 
   .legend-row(ng-if='types[""].count', ng-class="{contracted: typesContracted}", dir='rtl')
@@ -24,3 +24,6 @@
         .contents(ng-click="onItemClick(rel, 'relationshipType')")
           .label.label-relationship.class-name(ng-style='{"background-color": rel.style.props.color, "color": rel.style.props["text-color-internal"]}') {{type || '*'}}
             span.count ({{rel.count}})
+        a(ng-if="type == 'متقاضی' && currentApplicantID != null", ng-click="removeCourseApplicant()")
+          .contents.glyphicon.glyphicon-remove(tooltip="لغو نیاز", tooltip-placement='bottom', tooltip-animation='false')
+            | لغو

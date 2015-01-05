@@ -26,7 +26,8 @@ angular.module('neo4jApp.controllers')
     'GraphStyle'
     'Collection'
     '$timeout'
-    ($scope, graphStyle, Collection, $timeout) ->
+    'RFPCService'
+    ($scope, graphStyle, Collection, $timeout, rfpcService) ->
       $scope.sizes = graphStyle.defaultSizes()
       $scope.arrowWidths = graphStyle.defaultArrayWidths()
       $scope.colors = graphStyle.defaultColors()
@@ -34,7 +35,7 @@ angular.module('neo4jApp.controllers')
       $scope.inspectorContracted = yes
       $scope.inspectorChanged = no
       $scope.inspectorFixed = no
-
+      $scope.userAccount = 0
       inspectorItem = (item, type) ->
         data: item
         type: type
@@ -62,23 +63,27 @@ angular.module('neo4jApp.controllers')
           false
  
       $scope.onItemClick = (item, type) ->
+        $scope.currentItemhref = null
+        $scope.currentCourseID = null
+        $scope.currentApplicantID = null
         if item
           $scope.currentItem = inspectorItem(item, type)
           $scope.Inspector.reset($scope.currentItem)
-          $scope.currentItemhref = null
-          if $scope.currentItem.data.labels? 
-            if $scope.currentItem.data.labels[0]?
-              if $scope.currentItem.data.labels[0] == 'دوره'  
-                $scope.currentItemhref = '/webadmin/docx/'+$scope.currentItem.data.propertyMap['كد_تخصصي']+'/'+parseInt($scope.currentItem.data.propertyMap['ترتيب']).toString() 
-                if (doesFileExist $scope.currentItemhref+'.docx') == false
-                  if (doesFileExist $scope.currentItemhref+'.doc') == false
-                    $scope.currentItemhref = null
+          if item.type?
+            if item.type == 'متقاضی'
+              $scope.currentApplicantID = item.id
+          else
+            if item.labels?
+              if item.labels[0]?
+                if item.labels[0] == 'دوره'
+                  $scope.currentCourseID = item.id
+                  $scope.currentItemhref = '/webadmin/docx/'+item.propertyMap['كد_تخصصي']+'/'+parseInt(item.propertyMap['ترتيب']).toString()
+                  if (doesFileExist $scope.currentItemhref+'.docx') == false
+                    if (doesFileExist $scope.currentItemhref+'.doc') != false
+                      $scope.currentItemhref =  $scope.currentItemhref+'.doc'
                   else
-                    $scope.currentItemhref =  $scope.currentItemhref+'.doc'
-                else
-                  $scope.currentItemhref =  $scope.currentItemhref+'.docx' 
+                    $scope.currentItemhref =  $scope.currentItemhref+'.docx'
         else
-          $scope.currentItemhref = null
           $scope.currentItem = null
           $scope.Inspector.reset()
         triggerInspectorUIUpdate()
@@ -141,5 +146,13 @@ angular.module('neo4jApp.controllers')
       $scope.nodeDisplaySize = (idx) ->
         width: nodeDisplaySizes[idx]
         height: nodeDisplaySizes[idx]
+      
+      $scope.submitCourse = () ->
+        rfpcService.mergeApplicant $scope.userAccount, $scope.currentCourseID
 
+      $scope.submitClass = () ->
+        alert 'submitClass'
+
+      $scope.removeCourseApplicant = () ->
+        rfpcService.removeApplicant $scope.userAccount, $scope.currentApplicantID
   ]
